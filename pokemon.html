@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #con{
+        display: flex;
+        justify-content: space-around;
+        gap: 2rem;
+        flex-wrap: wrap
+    }
+    .card{
+        position: relative;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        width: 300px;
+        height: 400px;
+        transition: all .5s;
+        /* border: 2px solid red; */
+        box-shadow: 1px 2px 81px black;
+       
+    }
+    .front,.back{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: green;
+        
+    }
+    .back{
+        transform: rotateY(180deg);
+    }
+    .card:hover{
+        transform: rotateY(180deg);
+    }
+    #nav{
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        column-gap: 1rem;
+    }
+    #filter,#text{
+        padding: 1rem;
+        background-color: yellow;
+        color: black;
+    }
+</style>
+</head>
+<body>
+<div id="nav">
+    <select name="filter" id="filter">
+        <option value="all">All</option>
+        <option value="fire">Fire</option>
+        <option value="water">Water</option>
+        <option value="grass">Grass</option>
+    
+    </select>
+        <input type="text" id="text" placeholder="search ypur pikachu">
+</div>
+    <div id="con"></div>
+    <script>
+        let con = document.getElementById("con");
+        let text = document.getElementById("text");
+        let filter=document.getElementById('filter')
+
+      async function fetched(){
+       for(let i=1;i<151;i++){
+        let data=await fetchedData(i);
+        show(data);
+       }
+
+      }
+fetched();
+
+        async function fetchedData(i){
+        let res=await fetch (`https://pokeapi.co/api/v2/pokemon/${i}`);
+        let data=await res.json();
+        return data;
+        }
+
+        function show(data){
+            // console.log(data);
+            let div=document.createElement('div');
+            div.className='card';
+            div.innerHTML=`
+            <div class="front">
+                <h1>${data.id}</h1>
+                <img src="${data.sprites.front_default}" alt="${data.name}">
+                <h2>${data.name}</h2>
+                <h2>${data.types[0].type.name}</h2>
+                
+                </div>
+            <div class="back">
+                  <h1>${data.id}</h1>
+                <img src="${data.sprites.back_default}" alt="${data.name}">
+                <h2>${data.types[0].type.name}</h2></div>
+            
+            `
+            con.appendChild(div);
+        }
+
+
+        text.addEventListener('input',function(){
+            let value=text.value;
+            console.log(value);
+            let cards=document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name=card.children[0].children[2].innerHTML;
+                console.log(name);
+             if(name.toLowerCase().includes(value.toLowerCase())){
+                    card.style.display='block';
+                }else{
+                    card.style.display='none';
+                }
+            })
+        })
+        filter.addEventListener('change',function(){
+            let value=filter.value;
+            let cards=document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name=card.children[0].children[3].textContent;
+                if(value=='all'){
+                    card.style.display='block';
+                }else if(name.includes(value)){
+                    card.style.display='block';
+                }else{
+                    card.style.display='none';
+                }
+            })
+        })
+    </script>
+    
+</body>
+</html>
+<!-- 25min -->

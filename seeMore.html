@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quos obcaecati libero quo minima a unde excepturi quasi nam fuga non suscipit velit repellendus cumque neque eum, blanditiis iusto similique ullam delectus hic temporibus rerum mollitia! Ea, deserunt quidem necessitatibus inventore numquam harum nesciunt porro quas! Ad facilis odit dolores mollitia rem eveniet amet, id nisi ea dolorem quae ullam quas, impedit quo. Facere saepe commodi eveniet aut iusto maxime autem sapiente ratione iure suscipit natus at, ipsum sed excepturi ab in officia neque optio? Aliquam quisquam unde impedit illum. Adipisci unde obcaecati repellendus aut molestiae iusto. Voluptatibus, sint et.</p>
+    <p class="extra">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit ullam excepturi cum error maxime, temporibus nihil cupiditate tenetur, accusantium fugit quaerat, obcaecati eos? Atque fugiat sed eveniet, optio cupiditate provident.</p>
+    <button id="readMore">Read More</button>
+    <button id="readLess">Read Less</button>
+    <script>
+        const readMoreButton = document.getElementById('readMore');
+        const readLessButton = document.getElementById('readLess');
+        const extraParagraph = document.querySelector('.extra');
+        readLessButton.style.display='none';
+        extraParagraph.style.display='none';
+        readMoreButton.addEventListener('click', () => {
+            extraParagraph.style.display='block';
+            readMoreButton.style.display='none';
+            readLessButton.style.display='block';
+        })
+        readLessButton.addEventListener('click', () => {
+            extraParagraph.style.display='none';
+            readMoreButton.style.display='block';
+            readLessButton.style.display='none';
+        })
+    </script>
+    
+</body>
+</html>
+<!-- 2 -->

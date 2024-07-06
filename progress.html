@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #con{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #progress{
+            width: 50%;
+            height: 20px;
+            background-color: red;
+            animation: grow 5.8s linear infinite ;
+            transform-origin: left;
+        
+        }
+        @keyframes grow {
+            0% {
+        transform: scaleX(0);
+    }
+            
+            
+        }
+        .card{
+            width: 50%;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid red; */
+        }
+    </style>
+  </head>
+  <body>
+    
+    <div id="con">
+        <div id="progress"></div>
+       
+        <div class="card">
+            <h1>Pritiranjan Patra</h1>
+        <img src="https://randomuser.me/api/portraits/men/39.jpg" alt="profile picture">
+        <p>patrapritiranjan11@gmail.com</p>
+        </div>
+    </div>
+    <script>
+      let con = document.getElementById("con");
+      let arr = [];
+      async function fetchedData() {
+        let response = await fetch("https://randomuser.me/api?results=15");
+        let data = await response.json();
+        console.log(data.results);
+        let users=data.results;
+        users.forEach((user) => {
+            let obj={
+                name:user.name.first,
+                email:user.email,
+                picture:user.picture.large
+            }
+            arr.push(obj)
+
+        })
+        // console.log(arr);
+        // displayData(arr)
+        setInterval(function(){
+            displayData(arr);
+        },5000);
+      }
+      let index=0;
+      fetchedData();
+      function displayData(arr){
+        con.innerHTML=""
+        console.log(arr);
+        if(index==arr.length){
+            index=0;
+        }
+
+let progressDiv=document.createElement('div');
+progressDiv.id='progress';
+
+
+
+
+
+
+        let div=document.createElement('div');
+        div.className='card';
+        const {name,email,picture}=arr[index];
+        index++;
+        div.innerHTML=`
+        <h1>${name}</h1>
+        <img src="${picture}" alt="profile picture">
+        <p>${email}</p>
+        
+        `
+        con.appendChild(progressDiv);
+        con.appendChild(div);
+
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #outer{
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #inner{
+           
+            width: 100%;
+            height: 40vh;
+            display: flex;
+            transition: all .5s;
+            /* transform: translateX(-100%); */
+           
+            
+        }
+        .slider{
+            border: 2px solid black;
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner">
+            <div class="slider"><img src="https://img.freepik.com/free-photo/natures-beauty-captured-colorful-flower-close-up-generative-ai_188544-8593.jpg" alt=""></div>
+            <div class="slider"><img src="https://img.freepik.com/free-photo/summer-daisy-beauty-petal-close-up-purple-outdoors-generative-ai_188544-8633.jpg" alt=""></div>
+            <div class="slider"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1jMdkDsgtSqmavwzJRYtfQS8slcky_m1J0ArYp3Mfpx74InwEcZ6WUXoYJJayfV5Ij24&usqp=CAU" alt=""></div>
+        </div>
+        <button id="prev" onclick="prev()">prev</button>
+        <button id="next"  onclick="next()">next</button>
+    </div>
+    <script>
+        let total=document.querySelectorAll('.slider').length;
+        let currentSlide=0;
+        let inner=document.getElementById('inner'); 
+        function prev(){
+            currentSlide--;
+            show(currentSlide);
+        }
+        function next(){
+            currentSlide++;
+            show(currentSlide);
+        }
+        function show(index){
+            if(index>=total){
+                currentSlide=0;
+            }else if(index<0){
+                currentSlide=total-1;
+            }else{
+                currentSlide=index;
+            }
+            let translateValue=-currentSlide*100;
+            inner.style.transform=`translateX(${translateValue}%)`
+            
+        }
+        setInterval(function(){
+                currentSlide++;
+                show(currentSlide);
+            },3000)
+    </script>
+</body>
+</html>
+<!-- 16 -->

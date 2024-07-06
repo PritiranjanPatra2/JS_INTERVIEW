@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+        #con{
+            display: flex;
+            justify-content: space-around;
+            /* align-items: center; */
+            border: 2px solid green;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            width: 80%;
+            height: 100vh;
+            overflow-y: scroll;
+            margin: auto;
+        }
+        .card {
+    width: 200px;
+    height: 200px;
+    border: 2px solid red;
+    box-shadow: 1px 2px 13px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+        #input{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            padding: 2rem;
+        }
+        #text{
+            border: 2px solid black;
+            width: 50%;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="input">
+        <input type="text" id="text" placeholder="Enter Your User">
+    </div>
+    <div id="con"></div>
+    <script>
+        let con = document.getElementById("con");
+        let input = document.getElementById("text");
+        async function fetched(){
+            let response = await fetch("https://randomuser.me/api?results=150");
+            let data = await response.json();
+            let users = data.results;
+            console.log(users);
+            users.forEach(user => {
+                let div = document.createElement("div");
+                div.className='card';
+                div.innerHTML = `<img src="${user.picture.thumbnail}">
+                <h1>${user.name.first}</h1>
+                `
+                con.appendChild(div);
+            })
+        }
+        fetched()
+        input.addEventListener('input',function(){
+            let val = input.value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.querySelector('h1').textContent.toLowerCase();
+                if(name.includes(val)){
+                    card.style.display = 'block';}
+                    else{
+                        card.style.display = 'none';
+                    }
+                })
+        })
+    </script>
+</body>
+</html>
+
+<!-- 17 -->
