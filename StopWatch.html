@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="minute">00</span>
+    <span id="second">00</span>
+    <span id="milisecond">00</span>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <button id="reset">reset</button>
+    <script>
+        let minuteDom=document.getElementById('minute');
+        let secondDom=document.getElementById('second');
+        let milisecondDom=document.getElementById('milisecond');
+        let startDom=document.getElementById('start');
+        let stopDom=document.getElementById('stop');
+        let resetDom=document.getElementById('reset');
+        let counter=0,minuteValue=0,secondValue=0;
+        let timer=false;
+        startDom.addEventListener('click',function(){
+         timer=true;
+         calculation();
+        })
+        stopDom.addEventListener('click',function(){
+            timer=false;
+        }
+    )
+    resetDom.addEventListener('click',function(){
+   timer=false;
+   counter=0;
+   minuteValue=0;
+   secondValue=0;
+   minuteDom.textContent='00';
+   secondDom.textContent='00';
+   milisecondDom.textContent='00';
+
+    })
+    function calculation(){
+    if(timer){
+      counter++;
+      if(counter==100){
+        counter=0;
+        secondValue++;
+      }if(secondValue==60){
+        secondValue=0;
+        minuteValue++;
+      }
+      milisecondDom.innerText=counter.toString().padStart(2,'0');
+      secondDom.textContent=secondValue.toString().padStart(2,'0');
+      minuteDom.textContent=minuteValue.toString().padStart(2,'0');
+    }
+    setTimeout(calculation,10);
+    }
+    </script>
+</body>
+</html>
